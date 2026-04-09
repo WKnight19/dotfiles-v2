@@ -6,11 +6,24 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Created by newuser for 5.9
-export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
-export PATH="/usr/local/bin:/usr/bin:/bin:$PATH"
 export EDITOR="nvim"
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
+
+# ========= PATH ================
+export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+
+# pnpm 
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
+# pyenv
+
+# PostgreSQL (adjust version number if needed)
+export PATH="/usr/lib/postgresql/18/bin:$PATH"
+
+# PATH dedup
+
 
 
 # set the directory we want to store zinit and plugins
@@ -49,8 +62,29 @@ zinit snippet OMZP::ssh-agent
 
 #Load completions
 autoload -U compinit && compinit
-
 zinit cdreplay -q
+
+# ─── NVM ───────────────────────────────────────────────
+# OMZP::nvm above handles lazy loading, but NVM_DIR must be set first
+export NVM_DIR="$HOME/.nvm"   # fixed: was $hOME with unclosed quote
+
+declare -a __node_commands=('nvm' 'node' 'npm' 'npx' 'pnpm' 'yarn' 'claude')
+function __init_nvm() {
+  for i in "${__node_commands[@]}"; do unalias $i 2>/dev/null; done
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  unset __node_commands
+  unset -f __init_nvm
+}
+for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
+
+
+
+
+
+# ─── PYENV ─────────────────────────────────────────────
+
+# ─── DOCKER (WSL) ──────────────────────────────────────
+export DOCKER_HOST=unix:///var/run/docker.sock
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
