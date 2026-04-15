@@ -158,3 +158,6 @@ alias grep="grep --color=auto"
 
 # Shell integrations
 source <(fzf --zsh)
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
