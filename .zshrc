@@ -155,6 +155,23 @@ alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
 alias grep="grep --color=auto"
+alias lg="lazygit"
+alias lzd="lazydocker"
+
+
+# Aliases for TMUX
+alias ta='tmux attach -t'
+alias tad='tmux attach -d -t'
+alias ts='tmux new -s'
+alias tls='tmux list-sessions'
+alias tkill='tmux kill-session -t'
+alias tkillall='tmux kill-server'
+
+
+tao() {
+  tmux attach -t "$1" || tmux new -s "$1"
+}
+
 
 # Shell integrations
 source <(fzf --zsh)
