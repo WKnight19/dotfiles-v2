@@ -12,6 +12,9 @@ return {
          ██║     ██╔══██║ ███╔╝    ╚██╔╝  ╚██╗ ██╔╝██║██║╚██╔╝██║ z         
          ███████╗██║  ██║███████╗   ██║    ╚████╔╝ ██║██║ ╚═╝ ██║
          ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝
+    			WHEELER KNIGHT'S NEOVIM
+			UPDATED APR. 15 2026
+			ROLL TIDE ROLL!!!
     ]]
 
 		dashboard.section.header.val = vim.split(logo, "\n")
