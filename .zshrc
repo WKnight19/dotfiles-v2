@@ -113,7 +113,7 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -color $realpath'
 zstyle ':omz:plugins:alias-finder' autoload yes
 zstyle ':omz:plugins:alias-finder' cheaper yes
-zstyle ':omz:plugins:ssh-agent' identities DO_WheelerDesktop WheelerDesktop@GordonPalmer devops id_ed25519 id_rsa known_hosts wheeler_linux_wbknight1_id_ed25519
+zstyle ':omz:plugins:ssh-agent' identities droplet_uamnh id_ed25519 id_ed25519_wheelerknight19 id_rsa id_rsa_512 
 
 
 # Aliases
@@ -173,8 +173,10 @@ tao() {
 }
 
 
-# Shell integrations
-source <(fzf --zsh)
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Shell Integrations
+source <(fzf --zsh)
