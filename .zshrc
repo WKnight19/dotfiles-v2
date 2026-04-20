@@ -1,3 +1,4 @@
+zmodload zsh/zprof
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -43,25 +44,34 @@ source "${ZINIT_HOME}/zinit.zsh"
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 # Add in zsh plugins
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
-zinit light Aloxaf/fzf-tab
+zinit wait lucid for \
+    atinit"zicompinit; zicdreplay" \
+        zsh-users/zsh-syntax-highlighting \
+    atload"_zsh_autosuggest_start" \
+        zsh-users/zsh-autosuggestions \
+    blockf atpull'zinit creinstall -q .' \
+        zsh-users/zsh-completions \
+    Aloxaf/fzf-tab
 
 # Add in snippets
-zinit snippet OMZP::git
-zinit snippet OMZP::sudo
-zinit snippet OMZP::docker
-zinit snippet OMZP::docker-compose
-zinit snippet OMZP::alias-finder
-zinit snippet OMZP::command-not-found
-zinit snippet OMZP::ssh-agent
-
-
+zinit wait lucid for \
+    OMZP::git \
+    OMZP::sudo \
+    OMZP::docker \
+    OMZP::docker-compose \
+    OMZP::alias-finder \
+    OMZP::command-not-found \
+    OMZP::ssh-agent
 
 #Load completions
-autoload -U compinit && compinit
-zinit cdreplay -q
+#autoload -Uz compinit
+#if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+#  compinit
+#else
+#  compinit -C
+#fi
+#zinit cdreplay -q
+
 
 # ─── NVM ───────────────────────────────────────────────
 # OMZP::nvm above handles lazy loading, but NVM_DIR must be set first
@@ -113,6 +123,8 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -color $realpath'
 zstyle ':omz:plugins:alias-finder' autoload yes
 zstyle ':omz:plugins:alias-finder' cheaper yes
+zstyle ':omz:plugins:ssh-agent' lazy yes
+zstyle ':omz:plugins:ssh-agent' quiet yes
 zstyle ':omz:plugins:ssh-agent' identities droplet_uamnh id_ed25519 id_ed25519_wheelerknight19 id_rsa id_rsa_512 
 
 
@@ -174,9 +186,10 @@ tao() {
 
 
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+#eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Shell Integrations
 source <(fzf --zsh)
+
+zprof
