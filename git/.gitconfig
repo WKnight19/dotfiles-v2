@@ -1,0 +1,12 @@
+[user]
+	name = Wheeler Knight
+	email = wheelerknight19@gmail.com
+[core]
+	editor = nvim
+	autocrlf = input
+[color]
+	ui = auto
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
